@@ -48,6 +48,7 @@
             color: #666;
             text-transform: uppercase;
         }
+        /* FIX: Ensure all p and div inherit a thinner, more readable weight on mobile */
         p, div { font-size: 14px; margin-top: 2px; font-weight: 500; } 
         
         /* ABOUT CONTENT STYLES */
@@ -61,7 +62,8 @@
         .about-text {
             text-align: justify;
             margin-bottom: 10px;
-            font-weight: 500;
+            /* FIX: Reduced font weight for better readability */
+            font-weight: 400; 
             font-size: 17px;
             line-height: 1.6;
         }
@@ -152,10 +154,42 @@
             details summary {
                  grid-template-columns: 1fr auto;
             }
+            /* FIX: Ensure section heading is visible on mobile */
             details summary span:first-child {
+                display: block; /* Overrides the previous rule that set it to none */
+                font-size: 18px; /* Standard h2 size */
+                font-weight: 500;
+                color: #111;
+            }
+            /* Hide the redundant empty middle span on mobile */
+            details summary span:nth-child(2) {
                 display: none;
             }
         }
+        
+        /* Mobile specific fix for Experience/Education summary layout */
+        @media (max-width: 600px) {
+            /* Adjust the layout of nested summaries for mobile experience */
+            details summary {
+                grid-template-columns: 1fr auto;
+            }
+
+            /* For collapsible sections (Experience, Education), show the descriptive text (Company/Degree) */
+            details:not(.skills-category-details) summary span:nth-child(2) {
+                display: block;
+            }
+
+            /* Hide the time span on mobile as it conflicts with the new single column layout */
+            details summary span:first-child:not(.section-heading) {
+                display: none;
+            }
+            
+            /* General section headings remain fully visible */
+            details summary span.section-heading {
+                display: block;
+            }
+        }
+
 
         details summary::marker, details summary::-webkit-details-marker { display: none; }
         details[open] { background-color: #f9f9f9; }
