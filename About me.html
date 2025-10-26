@@ -93,10 +93,12 @@
         /* Mobile adjustment for header text alignment */
         @media (max-width: 600px) {
             .header-content {
-                align-items: flex-start;
+                /* FIX: Align items vertically center in mobile view */
+                align-items: center;
             }
             .header-text-block {
-                align-self: flex-start;
+                /* Revert to default behavior, letting the flex container center it */
+                align-self: auto; 
             }
         }
 
