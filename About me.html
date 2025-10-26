@@ -23,6 +23,7 @@
             box-sizing: border-box;
             line-height: 1.5;
             color: #333;
+            border-radius: 8px;
         }
         
         /* Responsive Padding for Mobile */
@@ -47,7 +48,10 @@
             font-weight: 500;
             color: #666;
             text-transform: uppercase;
+            transition: color 0.15s; 
+            cursor: pointer;
         }
+
         /* FIX: Ensure all p and div inherit a thinner, more readable weight on mobile */
         p, div { font-size: 14px; margin-top: 2px; font-weight: 500; } 
         
@@ -56,14 +60,21 @@
             font-size: 17px;
             margin-top: 8px; 
             color: #333; 
+            padding: 8px 0; 
             padding-bottom: 25px; 
             border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.15s; 
+            font-weight: 400; /* Set static content to thinner weight */
         }
+        /* Interactivity for About section content */
+        .about-content-text:hover {
+            background-color: #f9f9f9;
+        }
+
         .about-text {
             text-align: justify;
             margin-bottom: 10px;
-            /* FIX: Reduced font weight for better readability */
-            font-weight: 400; 
+            font-weight: 400; /* FIX: Reduced font weight for better readability */
             font-size: 17px;
             line-height: 1.6;
         }
@@ -142,54 +153,40 @@
         details:last-child { border-bottom: none; }
         details summary {
             list-style: none;
-            display: grid;
-            grid-template-columns: 100px 1fr auto;
-            gap: 15px;
+            display: flex; /* Changed from block */
+            align-items: center; /* Vertically align content */
+            justify-content: space-between; /* Space between text and icon */
             padding: 0;
             font-weight: 600;
             color: #111;
-            align-items: center;
-        }
-        @media (max-width: 600px) {
-            details summary {
-                 grid-template-columns: 1fr auto;
-            }
-            /* FIX: Ensure section heading is visible on mobile */
-            details summary span:first-child {
-                display: block; /* Overrides the previous rule that set it to none */
-                font-size: 18px; /* Standard h2 size */
-                font-weight: 500;
-                color: #111;
-            }
-            /* Hide the redundant empty middle span on mobile */
-            details summary span:nth-child(2) {
-                display: none;
-            }
+            padding: 5px 0; /* Minimal vertical padding */
         }
         
-        /* Mobile specific fix for Experience/Education summary layout */
-        @media (max-width: 600px) {
-            /* Adjust the layout of nested summaries for mobile experience */
-            details summary {
-                grid-template-columns: 1fr auto;
-            }
-
-            /* For collapsible sections (Experience, Education), show the descriptive text (Company/Degree) */
-            details:not(.skills-category-details) summary span:nth-child(2) {
-                display: block;
-            }
-
-            /* Hide the time span on mobile as it conflicts with the new single column layout */
-            details summary span:first-child:not(.section-heading) {
-                display: none;
-            }
-            
-            /* General section headings remain fully visible */
-            details summary span.section-heading {
-                display: block;
-            }
+        /* HEADER/SECTION TEXT STYLE (Non-Button) */
+        .section-header-text {
+            color: #111;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            font-size: 18px;
+            margin: 5px 0; /* Match previous button margin */
+            transition: color 0.15s;
         }
-
+        details summary:hover .section-header-text {
+            color: #38703a; /* Subtle color change on hover */
+        }
+        
+        /* ARROW ICON STYLE */
+        .details-icon {
+            transform: rotate(0deg);
+            transition: transform 0.2s;
+            font-size: 24px;
+            color: #666;
+            margin-left: 15px; /* Separate arrow from text */
+        }
+        details summary:hover .details-icon {
+            color: #38703a; /* Subtle color change on hover */
+        }
 
         details summary::marker, details summary::-webkit-details-marker { display: none; }
         details[open] { background-color: #f9f9f9; }
@@ -203,37 +200,51 @@
 
         /* --- ALIGNMENT FIXES: REMOVING RIGHT INDENTATION FOR COLLAPSIBLE CONTENT --- */
         .details-content {
-            padding: 10px 0 0 0; /* REMOVED ALL LEFT PADDING */
+            padding: 10px 0 0 0; 
             line-height: 1.6;
             color: #444;
         }
+        /* Key Skills Sub-Headings Alignment Fix */
         .skills-category-details summary {
-            padding-left: 0; /* Align skill categories flush left */
+            padding-left: 0; 
+            display: block; /* Allows full left alignment */
+            /* Nested Skills Category Header Text */
+            color: #111; 
+            font-weight: 600;
+            font-size: 15px;
+            margin-top: 10px;
         }
+        /* Key Skills Sub-Headings Text Alignment */
+        .skills-category-details summary > span:last-child {
+             /* Target the icon to re-float it to the right */
+            float: right;
+            margin-right: 0;
+            margin-top: 2px;
+            line-height: 1;
+        }
+        .skills-category-details summary > span:nth-child(2) {
+            /* Target the bold category name */
+            float: left;
+            margin-left: 0;
+        }
+
         .skills-list {
-            padding-left: 0; /* Align skill bullet points flush left */
+            padding-left: 0; 
             margin-top: 5px;
             line-height: 1.8;
             color: #444;
+            font-size: 14px;
         }
         .sub-job {
             margin-top: 10px;
             padding-left: 15px; 
             border-left: 2px solid #ccc;
+            border-radius: 4px; 
         }
         /* END ALIGNMENT FIXES */
 
-        /* Icon styling and rotation */
-        .details-icon {
-            margin-left: auto;
-            transform: rotate(0deg);
-            transition: transform 0.2s;
-            font-size: 24px;
-            color: #666;
-        }
-        /* CRITICAL FIX: Ensures nested details icons rotate */
-        details[open] > summary > .details-icon, 
-        .skills-category-details[open] > summary > .details-icon {
+        /* Icon rotation */
+        details[open] > summary .details-icon {
             transform: rotate(180deg);
         }
 
@@ -246,7 +257,10 @@
              line-height: 1.8;
              transition: background-color 0.15s;
         }
-        .contact-entry:hover { background-color: #f9f9f9; }
+        .contact-entry:hover { 
+            background-color: #f9f9f9;
+            border-radius: 4px; 
+        }
         .contact-icon-svg {
             margin-right: 15px; 
             margin-left: 30px; 
@@ -262,9 +276,27 @@
             color: #666;
             flex-shrink: 0;
         }
-        /* Override for Material Symbols icons in the main details summary (dropdown arrow) */
-        details summary .material-symbols-outlined { margin-left: auto; margin-right: 0; }
-        .contact-text { font-weight: 500; color: #444; }
+        
+        /* Experience Link Style (formerly button) */
+        .experience-link {
+            display: block;
+            width: fit-content;
+            margin: 10px 0;
+            padding: 5px 0;
+            font-weight: 600;
+            color: #38703a;
+            border-bottom: 1px dashed #38703a;
+            transition: color 0.15s;
+        }
+        .experience-link:hover {
+            color: #2e5c30;
+            border-bottom-style: solid;
+        }
+        .experience-link-icon {
+            font-size: 18px;
+            margin-right: 8px;
+            color: inherit;
+        }
         
         /* JUSTIFIED TEXT FOR ABOUT SECTION */
         .about-text {
@@ -370,7 +402,7 @@
         </div>
 
         <!-- ABOUT SECTION - STATIC -->
-        <h2 class="section-heading" style="color: #666; font-weight: 500; margin-top: 0;">ABOUT</h2>
+        <h2 class="section-heading" style="color: #666; font-weight: 500; margin-top: 0; cursor: default !important;">ABOUT</h2>
         <div class="about-content-text">
             <p class="about-text">Tech enthusiast, entrepreneur and creative professional leverages expertise in healthcare, technology, advertising and marketing to consistently elevate and enhance digital experiences.</p>
             <p class="about-text">Versatile expert with a proven track record in executive leadership, digital innovation and brand development. Skilled in strategic planning and execution, decision-making and driving business growth to deliver impactful digital experiences in evolving industries.</p>
@@ -379,8 +411,7 @@
         <!-- KEY SKILLS SECTION -->
         <details>
             <summary>
-                <span class="section-heading" style="color: #666; font-weight: 500;">KEY SKILLS</span>
-                <span style="font-weight: 600; color: #111;"></span>
+                <span class="section-header-text">KEY SKILLS</span>
                 <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
             </summary>
             <div class="details-content">
@@ -432,8 +463,7 @@
         <!-- EXPERIENCE (formerly WORK EXPERIENCE) -->
         <details>
             <summary>
-                <span class="section-heading" style="color: #666; font-weight: 500;">Experience</span>
-                <span style="font-weight: 600; color: #111;"></span>
+                <span class="section-header-text">EXPERIENCE</span>
                 <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
             </summary>
             <div class="details-content">
@@ -446,6 +476,13 @@
                         <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
                     </summary>
                     <div class="details-content">
+                        <!-- Website Link -->
+                        <div style="display: flex; justify-content: flex-start; width: 100%; margin-bottom: 10px;">
+                            <a href="https://www.nutryfit.in/" target="_blank" class="experience-link">
+                                <span class="material-symbols-outlined experience-link-icon">link</span>
+                                Visit Nutryfit Website
+                            </a>
+                        </div>
                         <!-- CEO Role -->
                         <div class="sub-job">
                             <p style="font-weight: 600;">Chief Executive Officer (Jan 2024 - Now)</p>
@@ -467,6 +504,13 @@
                         <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
                     </summary>
                     <div class="details-content">
+                        <!-- Website Link -->
+                        <div style="display: flex; justify-content: flex-start; width: 100%; margin-bottom: 10px;">
+                            <a href="https://www.speakerbox.agency/" target="_blank" class="experience-link">
+                                <span class="material-symbols-outlined experience-link-icon">link</span>
+                                Visit Speakerbox Website
+                            </a>
+                        </div>
                         <!-- AI Coordinator Role -->
                         <div class="sub-job">
                             <p style="font-weight: 600;">AI Department Coordinator (Apr 2025 - Now)</p>
@@ -512,8 +556,7 @@
         <!-- EDUCATION -->
         <details>
             <summary>
-                <span class="section-heading" style="color: #666; font-weight: 500;">Education</span>
-                <span style="font-weight: 600; color: #111;"></span>
+                <span class="section-header-text">EDUCATION</span>
                 <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
             </summary>
             <div class="details-content">
@@ -542,8 +585,7 @@
         <!-- CONNECT (formerly CONTACT) -->
         <details>
             <summary>
-                <span class="section-heading" style="color: #666; font-weight: 500;">Connect</span>
-                <span style="font-weight: 600; color: #111;"></span>
+                <span class="section-header-text">CONNECT</span>
                 <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
             </summary>
             <div class="details-content">
