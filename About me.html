@@ -8,52 +8,62 @@
     <style>
         /* BASE & TYPOGRAPHY */
         body { 
-            font-family: Helvetica, Arial, sans-serif; /* Changed to Helvetica, Arial, sans-serif */
+            font-family: Helvetica, Arial, sans-serif;
             margin: 0; 
             padding: 20px; 
-            background-color: #E9FDF2; /* Requested page background color */
+            background-color: #E9FDF2; 
             display: flex;
             justify-content: center;
         }
         .cv-container {
             max-width: 800px;
             width: 100%;
-            background-color: #fff; /* White background for the main content area */
+            background-color: #fff;
             padding: 40px;
             box-sizing: border-box;
             line-height: 1.5;
             color: #333;
         }
+        
+        /* Responsive Padding for Mobile */
+        @media (max-width: 600px) {
+            .cv-container {
+                padding: 20px 15px;
+            }
+        }
+        
         h1 { font-size: 36px; margin: 0; font-weight: 700; color: #111; transition: color 0.15s; }
         h2 { 
             font-size: 18px; 
             margin-top: 25px; 
             margin-bottom: 5px; 
-            font-weight: 500; /* Reduced weight for a thinner look */
-            text-transform: uppercase; /* Ensure all h2 headings are capitalized */
+            font-weight: 500;
+            text-transform: uppercase;
             letter-spacing: 0.05em; 
             color: #111; 
         }
         /* Specific override for section headings to match the minimalist CV style */
         .section-heading {
             font-weight: 500;
-            color: #666; /* Matching the lighter color of Key Skills label */
+            color: #666;
             text-transform: uppercase;
         }
         p, div { font-size: 14px; margin-top: 2px; font-weight: 500; } 
-        /* INCREASED FONT SIZE FOR ABOUT CONTENT */
+        
+        /* ABOUT CONTENT STYLES */
         .about-content-text { 
-            font-size: 17px; /* Updated font size for About content to 17px */
+            font-size: 17px;
             margin-top: 8px; 
             color: #333; 
             padding-bottom: 25px; 
             border-bottom: 1px solid #f0f0f0;
         }
-        .about-text-wrapper {
-            /* Removed unnecessary padding from when it was collapsible */
-            padding: 0; 
+        .about-text {
+            text-align: justify;
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-size: 17px;
             line-height: 1.6;
-            color: #444;
         }
 
         a { color: inherit; text-decoration: none; }
@@ -62,59 +72,62 @@
         /* HEADER STYLES & INTERACTIVITY */
         .header-content { 
             display: flex; 
-            align-items: center; /* Ensures vertical centering of image and text block */
+            align-items: center; 
             margin-bottom: 30px; 
             cursor: pointer;
         }
-        /* Interactivity on Name/Title Block */
-        .header-text-block:hover h1, .header-text-block:hover p { 
-            color: #589e5a; 
-            transform: scale(1.01);
-        }
-        .header-text-block {
-            transition: color 0.15s, transform 0.15s;
+        
+        /* Mobile adjustment for header text alignment */
+        @media (max-width: 600px) {
+            .header-content {
+                align-items: flex-start;
+            }
+            .header-text-block {
+                align-self: flex-start;
+            }
         }
 
-        
         .profile-image { 
-            width: 130px; /* Increased Size */
+            width: 130px;
             height: 130px; 
             border-radius: 50%; 
             object-fit: cover; 
-            margin-right: 25px; /* Increased margin for spacing */
+            margin-right: 25px;
             transition: transform 0.15s;
         }
-        /* Interactivity on Image */
-        .header-content:hover .profile-image { 
-            transform: scale(1.05);
-        }
-        /* Interactivity on text */
-        .header-text-block {
-             transition: color 0.15s;
-        }
-        .header-text-block:hover h1 {
-             color: #38703a;
-        }
-        .header-text-block:hover p {
-             color: #589e5a;
-        }
+        /* Interactivity */
+        .header-content:hover .profile-image { transform: scale(1.05); }
+        .header-text-block { transition: color 0.15s, transform 0.15s; line-height: 1.1; }
+        .header-content:hover h1 { color: #38703a; transform: scale(1.01); }
+        .header-content:hover p { color: #589e5a; transform: scale(1.01); }
 
 
         /* TWO-COLUMN LAYOUT FOR CONTENT SECTIONS */
         .two-col-grid { 
             display: grid; 
-            grid-template-columns: 100px 1fr; /* Narrow column for date/label, Wide column for content */
+            grid-template-columns: 100px 1fr;
             gap: 15px; 
         }
+        @media (max-width: 600px) {
+             .two-col-grid { 
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+            .two-col-grid p:first-child { 
+                font-weight: 600; 
+                color: #333 !important;
+            }
+        }
+
         .two-col-container { 
             margin-top: 10px; 
             padding: 10px 0;
             transition: background-color 0.15s;
-            overflow: hidden; /* Needed for slide transition */
+            overflow: hidden; 
             border-bottom: 1px solid #f0f0f0; 
         }
         .two-col-container:last-child { border-bottom: none; }
-        .two-col-container:hover { background-color: #f9f9f9; cursor: pointer; } /* Item interactivity */
+        .two-col-container:hover { background-color: #f9f9f9; cursor: pointer; }
         
         /* Dropdown/Collapsible Styling */
         details {
@@ -122,69 +135,66 @@
             cursor: pointer;
             padding: 10px 0;
             transition: background-color 0.15s;
-            overflow: hidden; /* Important for animation */
+            overflow: hidden;
         }
         details:last-child { border-bottom: none; }
         details summary {
-            list-style: none; /* Hide default arrow */
+            list-style: none;
             display: grid;
-            grid-template-columns: 100px 1fr auto; /* Added auto column for icon */
+            grid-template-columns: 100px 1fr auto;
             gap: 15px;
             padding: 0;
             font-weight: 600;
             color: #111;
             align-items: center;
         }
-        details summary::marker, details summary::-webkit-details-marker {
-            display: none;
+        @media (max-width: 600px) {
+            details summary {
+                 grid-template-columns: 1fr auto;
+            }
+            details summary span:first-child {
+                display: none;
+            }
         }
-        details[open] {
-            background-color: #f9f9f9;
-        }
+
+        details summary::marker, details summary::-webkit-details-marker { display: none; }
+        details[open] { background-color: #f9f9f9; }
         
         /* CSS for smooth slide animation */
         .details-inner {
             overflow: hidden;
-            transition: height 0.3s ease-out; /* Smooth transition for height change */
+            transition: height 0.3s ease-out;
             padding-bottom: 10px;
         }
 
+        /* --- ALIGNMENT FIXES: REMOVING RIGHT INDENTATION FOR COLLAPSIBLE CONTENT --- */
         .details-content {
-            padding: 10px 0 0 115px; /* Indent content under the main job title */
+            padding: 10px 0 0 0; /* REMOVED ALL LEFT PADDING */
             line-height: 1.6;
             color: #444;
         }
-        /* Nested Details for Skills */
-        .skills-category-details {
-             border-bottom: none;
-             padding: 5px 0;
-        }
         .skills-category-details summary {
-            grid-template-columns: 115px 1fr auto; /* Adjusted grid for skills summary indentation */
-            font-weight: 500;
-            color: #333;
+            padding-left: 0; /* Align skill categories flush left */
         }
-        /* Adjusted padding for skills list to move it left */
         .skills-list {
-            padding-left: 100px; /* Reduced indentation from 130px to 100px */
+            padding-left: 0; /* Align skill bullet points flush left */
             margin-top: 5px;
             line-height: 1.8;
             color: #444;
         }
-
         .sub-job {
             margin-top: 10px;
-            padding-left: 10px;
+            padding-left: 15px; 
             border-left: 2px solid #ccc;
         }
-        .sub-job p { margin: 5px 0; }
+        /* END ALIGNMENT FIXES */
 
         /* Icon styling and rotation */
         .details-icon {
-            margin-left: auto; /* Push icon to the right */
+            margin-left: auto;
             transform: rotate(0deg);
             transition: transform 0.2s;
-            font-size: 24px; /* Material Symbol size */
+            font-size: 24px;
             color: #666;
         }
         /* CRITICAL FIX: Ensures nested details icons rotate */
@@ -193,7 +203,7 @@
             transform: rotate(180deg);
         }
 
-        /* CONTACT ALIGNMENT AND ICON STYLE */
+        /* CONNECT ALIGNMENT AND ICON STYLE */
         .contact-entry {
              display: flex;
              align-items: center;
@@ -202,36 +212,25 @@
              line-height: 1.8;
              transition: background-color 0.15s;
         }
-        .contact-entry:hover {
-            background-color: #f9f9f9;
-        }
+        .contact-entry:hover { background-color: #f9f9f9; }
         .contact-icon-svg {
             margin-right: 15px; 
-            margin-left: 30px; /* Adjusted Contact Icons margin */
+            margin-left: 30px; 
             width: 18px;
             height: 18px;
             flex-shrink: 0;
         }
-        .contact-icon-svg path {
-            fill: #666; 
-        }
+        .contact-icon-svg path { fill: #666; }
         .material-symbols-outlined {
             font-size: 18px;
             margin-right: 15px;
-            margin-left: 30px; /* Adjusted Contact Icons margin */
+            margin-left: 30px;
             color: #666;
             flex-shrink: 0;
         }
         /* Override for Material Symbols icons in the main details summary (dropdown arrow) */
-        details summary .material-symbols-outlined {
-            margin-left: auto;
-            margin-right: 0;
-        }
-
-        .contact-text {
-             font-weight: 500;
-             color: #444;
-        }
+        details summary .material-symbols-outlined { margin-left: auto; margin-right: 0; }
+        .contact-text { font-weight: 500; color: #444; }
         
         /* JUSTIFIED TEXT FOR ABOUT SECTION */
         .about-text {
@@ -243,26 +242,18 @@
         function toggleDetails(details) {
             const innerContent = details.querySelector('.details-inner');
             
-            // Check if innerContent exists before proceeding
             if (!innerContent) return;
 
-            // Prevent default toggle behavior temporarily
-            details.ontoggle = (event) => {
-                event.preventDefault();
-            };
-
-            // Use requestAnimationFrame for smooth interaction
             requestAnimationFrame(() => {
                 if (details.hasAttribute('open')) {
                     // Collapsing
                     const height = innerContent.scrollHeight;
                     innerContent.style.height = height + 'px';
                     
-                    // Force reflow
-                    innerContent.offsetHeight;
+                    innerContent.offsetHeight; // Force reflow
 
                     innerContent.style.height = '0px';
-
+                    
                     innerContent.addEventListener('transitionend', function handler() {
                         if (innerContent.style.height === '0px') {
                             details.removeAttribute('open');
@@ -284,20 +275,14 @@
                     }, { once: true });
                 }
             });
-            
-            // Restore default toggle behavior for future clicks
-            setTimeout(() => {
-                details.ontoggle = null;
-            }, 300); // Match transition duration
         }
 
         document.addEventListener('DOMContentLoaded', () => {
              document.querySelectorAll('details').forEach(details => {
-                // Find the summary element
                 const summary = details.querySelector('summary');
-                
-                // Wrap content for animation and assign a class for later selection
                 const content = details.querySelector('.details-content');
+                
+                // 1. Wrap content for animation
                 if (content) {
                     const innerWrapper = document.createElement('div');
                     innerWrapper.classList.add('details-inner');
@@ -307,26 +292,21 @@
                     content.appendChild(innerWrapper);
                 }
                 
-                // CRITICAL: Bind the animation handler to the summary click
+                // 2. Bind the animation handler to the summary click
                 if (summary) {
                     summary.addEventListener('click', (e) => {
                         e.preventDefault();
-                        // Call toggleDetails passing the parent <details> element
                         toggleDetails(details);
                     });
                 }
 
-
-                // Initialize all sections as collapsed (set height to 0)
+                // 3. Initialize all sections as collapsed (set height to 0)
                 if (!details.hasAttribute('open')) {
-                    // Temporarily open to measure scrollHeight
                     details.setAttribute('open', ''); 
                     const innerContent = details.querySelector('.details-inner');
                     if (innerContent) {
-                        // Use scrollHeight for initial height setting, then collapse
                         innerContent.style.height = innerContent.scrollHeight + 'px'; 
                         
-                        // Use a tiny delay to ensure height is set before starting collapse
                         setTimeout(() => {
                             innerContent.style.height = '0px';
                             details.removeAttribute('open');
@@ -349,7 +329,7 @@
                 class="profile-image" 
                 onerror="this.onerror=null; this.src='https://placehold.co/130x130/f0f0f0/333333?text=AM';">
             
-            <div class="header-text-block" style="line-height: 1.1;">
+            <div class="header-text-block">
                 <h1>Amal Mohammed</h1>
                 <p style="font-size: 16px; font-weight: 500; color: #444;">CEO at Nutryfit</p>
             </div>
@@ -358,18 +338,18 @@
         <!-- ABOUT SECTION - STATIC -->
         <h2 class="section-heading" style="color: #666; font-weight: 500; margin-top: 0;">ABOUT</h2>
         <div class="about-content-text">
-            <p class="about-text" style="margin-bottom: 10px; font-weight: 500; font-size: 17px;">Tech enthusiast, entrepreneur and creative professional leverages expertise in healthcare, technology, advertising and marketing to consistently elevate and enhance digital experiences.</p>
-            <p class="about-text" style="font-weight: 500; font-size: 17px;">Versatile expert with a proven track record in executive leadership, digital innovation and brand development. Skilled in strategic planning and execution, decision-making and driving business growth to deliver impactful digital experiences in evolving industries.</p>
+            <p class="about-text">Tech enthusiast, entrepreneur and creative professional leverages expertise in healthcare, technology, advertising and marketing to consistently elevate and enhance digital experiences.</p>
+            <p class="about-text">Versatile expert with a proven track record in executive leadership, digital innovation and brand development. Skilled in strategic planning and execution, decision-making and driving business growth to deliver impactful digital experiences in evolving industries.</p>
         </div>
         
         <!-- KEY SKILLS SECTION -->
-        <details> <!-- Collapsed by default -->
+        <details>
             <summary>
                 <span class="section-heading" style="color: #666; font-weight: 500;">KEY SKILLS</span>
                 <span style="font-weight: 600; color: #111;"></span>
                 <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
             </summary>
-            <div class="details-content" style="padding-left: 0; margin-top: 5px;">
+            <div class="details-content">
                 
                 <!-- Skills Column 1: Executive (Collapsed by default) -->
                 <details class="skills-category-details">
@@ -378,7 +358,7 @@
                         <span style="font-weight: 600; color: #111;">EXECUTIVE</span>
                         <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
                     </summary>
-                    <div class="details-content" style="padding-left: 115px; padding-top: 10px;">
+                    <div class="details-content">
                         <div class="skills-list">
                             Strategic Leadership &bull; Strategic Planning & Vision &bull; Executive Management &bull; Marketing Strategy &bull; Communication & Client Relations
                         </div>
@@ -392,7 +372,7 @@
                         <span style="font-weight: 600; color: #111;">INNOVATION</span>
                         <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
                     </summary>
-                    <div class="details-content" style="padding-left: 115px; padding-top: 10px;">
+                    <div class="details-content">
                         <div class="skills-list">
                             Generative AI for Management &bull; Generative AI for Development &bull; Digital Innovation &bull; Decision-Making &bull; Healthcare Management &bull; Social Media Optimization (SMO) &bull; Business & Startup Development
                         </div>
@@ -406,7 +386,7 @@
                         <span style="font-weight: 600; color: #111;">TECHNOLOGY</span>
                         <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
                     </summary>
-                    <div class="details-content" style="padding-left: 115px; padding-top: 10px;">
+                    <div class="details-content">
                         <div class="skills-list">
                             Graphic Design &bull; User Interface (UI) Design &bull; Corporate Branding & Identity
                         </div>
@@ -416,13 +396,13 @@
         </details>
 
         <!-- EXPERIENCE (formerly WORK EXPERIENCE) -->
-        <details> <!-- Collapsed by default -->
+        <details>
             <summary>
                 <span class="section-heading" style="color: #666; font-weight: 500;">Experience</span>
                 <span style="font-weight: 600; color: #111;"></span>
                 <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
             </summary>
-            <div class="details-content" style="padding-left: 0; margin-top: 5px;">
+            <div class="details-content">
                 
                 <!-- NUTRYFIT GROUPING -->
                 <details style="border-bottom: none;">
@@ -431,7 +411,7 @@
                         <span style="font-weight: 600; color: #111;">Nutryfit</span>
                         <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
                     </summary>
-                    <div class="details-content" style="padding-left: 115px; padding-top: 10px;">
+                    <div class="details-content">
                         <!-- CEO Role -->
                         <div class="sub-job">
                             <p style="font-weight: 600;">Chief Executive Officer (Jan 2024 - Now)</p>
@@ -452,7 +432,7 @@
                         <span style="font-weight: 600; color: #111;">Speakerbox</span>
                         <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
                     </summary>
-                    <div class="details-content" style="padding-left: 115px; padding-top: 10px;">
+                    <div class="details-content">
                         <!-- AI Coordinator Role -->
                         <div class="sub-job">
                             <p style="font-weight: 600;">AI Department Coordinator (Apr 2025 - Now)</p>
@@ -483,7 +463,7 @@
                         <span style="font-weight: 600; color: #111;">the websiters</span>
                         <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
                     </summary>
-                    <div class="details-content" style="padding-left: 115px; padding-top: 10px;">
+                    <div class="details-content">
                         <!-- Founder Role -->
                         <div class="sub-job">
                             <p style="font-weight: 600;">Founder</p>
@@ -496,13 +476,13 @@
         </details>
 
         <!-- EDUCATION -->
-        <details> <!-- Collapsed by default -->
+        <details>
             <summary>
                 <span class="section-heading" style="color: #666; font-weight: 500;">Education</span>
                 <span style="font-weight: 600; color: #111;"></span>
                 <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
             </summary>
-            <div class="details-content" style="padding-left: 0; margin-top: 5px;">
+            <div class="details-content">
                 <div class="two-col-container">
                     <div class="two-col-grid">
                         <p style="color: #666;">2019 - 2023</p>
@@ -526,13 +506,13 @@
 
 
         <!-- CONNECT (formerly CONTACT) -->
-        <details> <!-- Collapsed by default -->
+        <details>
             <summary>
                 <span class="section-heading" style="color: #666; font-weight: 500;">Connect</span>
                 <span style="font-weight: 600; color: #111;"></span>
                 <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
             </summary>
-            <div class="details-content" style="padding-left: 0; margin-top: 5px;">
+            <div class="details-content">
                 
                 <!-- LinkedIn -->
                 <div class="contact-entry">
