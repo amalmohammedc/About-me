@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amal Mohammed Professional Profile</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    <style>
+        /* BASE & TYPOGRAPHY */
+        body { 
+            font-family: Helvetica, Arial, sans-serif; /* Changed to Helvetica, Arial, sans-serif */
+            margin: 0; 
+            padding: 20px; 
+            background-color: #E9FDF2; /* Requested page background color */
+            display: flex;
+            justify-content: center;
+        }
+        .cv-container {
+            max-width: 800px;
+            width: 100%;
+            background-color: #fff; /* White background for the main content area */
+            padding: 40px;
+            box-sizing: border-box;
+            line-height: 1.5;
+            color: #333;
+        }
+        h1 { font-size: 36px; margin: 0; font-weight: 700; color: #111; transition: color 0.15s; }
+        h2 { 
+            font-size: 18px; 
+            margin-top: 25px; 
+            margin-bottom: 5px; 
+            font-weight: 500; /* Reduced weight for a thinner look */
+            text-transform: uppercase; /* Ensure all h2 headings are capitalized */
+            letter-spacing: 0.05em; 
+            color: #111; 
+        }
+        /* Specific override for section headings to match the minimalist CV style */
+        .section-heading {
+            font-weight: 500;
+            color: #666; /* Matching the lighter color of Key Skills label */
+            text-transform: uppercase;
+        }
+        p, div { font-size: 14px; margin-top: 2px; font-weight: 500; } 
+        /* INCREASED FONT SIZE FOR ABOUT CONTENT */
+        .about-content-text { 
+            font-size: 17px; /* Updated font size for About content to 17px */
+            margin-top: 8px; 
+            color: #333; 
+            padding-bottom: 25px; 
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .about-text-wrapper {
+            /* Removed unnecessary padding from when it was collapsible */
+            padding: 0; 
+            line-height: 1.6;
+            color: #444;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* HEADER STYLES & INTERACTIVITY */
+        .header-content { 
+            display: flex; 
+            align-items: center; /* Ensures vertical centering of image and text block */
+            margin-bottom: 30px; 
+            cursor: pointer;
+        }
+        /* Interactivity on Name/Title Block */
+        .header-text-block:hover h1, .header-text-block:hover p { 
+            color: #589e5a; 
+            transform: scale(1.01);
+        }
+        .header-text-block {
+            transition: color 0.15s, transform 0.15s;
+        }
+
+        
+        .profile-image { 
+            width: 130px; /* Increased Size */
+            height: 130px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            margin-right: 25px; /* Increased margin for spacing */
+            transition: transform 0.15s;
+        }
+        /* Interactivity on Image */
+        .header-content:hover .profile-image { 
+            transform: scale(1.05);
+        }
+        /* Interactivity on text */
+        .header-text-block {
+             transition: color 0.15s;
+        }
+        .header-text-block:hover h1 {
+             color: #38703a;
+        }
+        .header-text-block:hover p {
+             color: #589e5a;
+        }
+
+
+        /* TWO-COLUMN LAYOUT FOR CONTENT SECTIONS */
+        .two-col-grid { 
+            display: grid; 
+            grid-template-columns: 100px 1fr; /* Narrow column for date/label, Wide column for content */
+            gap: 15px; 
+        }
+        .two-col-container { 
+            margin-top: 10px; 
+            padding: 10px 0;
+            transition: background-color 0.15s;
+            overflow: hidden; /* Needed for slide transition */
+            border-bottom: 1px solid #f0f0f0; 
+        }
+        .two-col-container:last-child { border-bottom: none; }
+        .two-col-container:hover { background-color: #f9f9f9; cursor: pointer; } /* Item interactivity */
+        
+        /* Dropdown/Collapsible Styling */
+        details {
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            padding: 10px 0;
+            transition: background-color 0.15s;
+            overflow: hidden; /* Important for animation */
+        }
+        details:last-child { border-bottom: none; }
+        details summary {
+            list-style: none; /* Hide default arrow */
+            display: grid;
+            grid-template-columns: 100px 1fr auto; /* Added auto column for icon */
+            gap: 15px;
+            padding: 0;
+            font-weight: 600;
+            color: #111;
+            align-items: center;
+        }
+        details summary::marker, details summary::-webkit-details-marker {
+            display: none;
+        }
+        details[open] {
+            background-color: #f9f9f9;
+        }
+        
+        /* CSS for smooth slide animation */
+        .details-inner {
+            overflow: hidden;
+            transition: height 0.3s ease-out; /* Smooth transition for height change */
+            padding-bottom: 10px;
+        }
+
+        .details-content {
+            padding: 10px 0 0 115px; /* Indent content under the main job title */
+            line-height: 1.6;
+            color: #444;
+        }
+        /* Nested Details for Skills */
+        .skills-category-details {
+             border-bottom: none;
+             padding: 5px 0;
+        }
+        .skills-category-details summary {
+            grid-template-columns: 115px 1fr auto; /* Adjusted grid for skills summary indentation */
+            font-weight: 500;
+            color: #333;
+        }
+        /* Adjusted padding for skills list to move it left */
+        .skills-list {
+            padding-left: 100px; /* Reduced indentation from 130px to 100px */
+            margin-top: 5px;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .sub-job {
+            margin-top: 10px;
+            padding-left: 10px;
+            border-left: 2px solid #ccc;
+        }
+        .sub-job p { margin: 5px 0; }
+
+        /* Icon styling and rotation */
+        .details-icon {
+            margin-left: auto; /* Push icon to the right */
+            transform: rotate(0deg);
+            transition: transform 0.2s;
+            font-size: 24px; /* Material Symbol size */
+            color: #666;
+        }
+        /* CRITICAL FIX: Ensures nested details icons rotate */
+        details[open] > summary > .details-icon, 
+        .skills-category-details[open] > summary > .details-icon {
+            transform: rotate(180deg);
+        }
+
+        /* CONTACT ALIGNMENT AND ICON STYLE */
+        .contact-entry {
+             display: flex;
+             align-items: center;
+             margin-top: 5px;
+             padding: 5px 0;
+             line-height: 1.8;
+             transition: background-color 0.15s;
+        }
+        .contact-entry:hover {
+            background-color: #f9f9f9;
+        }
+        .contact-icon-svg {
+            margin-right: 15px; 
+            margin-left: 30px; /* Adjusted Contact Icons margin */
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+        .contact-icon-svg path {
+            fill: #666; 
+        }
+        .material-symbols-outlined {
+            font-size: 18px;
+            margin-right: 15px;
+            margin-left: 30px; /* Adjusted Contact Icons margin */
+            color: #666;
+            flex-shrink: 0;
+        }
+        /* Override for Material Symbols icons in the main details summary (dropdown arrow) */
+        details summary .material-symbols-outlined {
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .contact-text {
+             font-weight: 500;
+             color: #444;
+        }
+        
+        /* JUSTIFIED TEXT FOR ABOUT SECTION */
+        .about-text {
+            text-align: justify;
+        }
+    </style>
+    
+    <script>
+        function toggleDetails(details) {
+            const innerContent = details.querySelector('.details-inner');
+            
+            // Check if innerContent exists before proceeding
+            if (!innerContent) return;
+
+            // Prevent default toggle behavior temporarily
+            details.ontoggle = (event) => {
+                event.preventDefault();
+            };
+
+            // Use requestAnimationFrame for smooth interaction
+            requestAnimationFrame(() => {
+                if (details.hasAttribute('open')) {
+                    // Collapsing
+                    const height = innerContent.scrollHeight;
+                    innerContent.style.height = height + 'px';
+                    
+                    // Force reflow
+                    innerContent.offsetHeight;
+
+                    innerContent.style.height = '0px';
+
+                    innerContent.addEventListener('transitionend', function handler() {
+                        if (innerContent.style.height === '0px') {
+                            details.removeAttribute('open');
+                        }
+                        innerContent.removeEventListener('transitionend', handler);
+                    }, { once: true });
+
+                } else {
+                    // Expanding
+                    details.setAttribute('open', '');
+                    const height = innerContent.scrollHeight;
+                    innerContent.style.height = height + 'px';
+                    
+                    innerContent.addEventListener('transitionend', function handler() {
+                        if (details.hasAttribute('open')) {
+                            innerContent.style.height = ''; // Remove fixed height after transition
+                        }
+                        innerContent.removeEventListener('transitionend', handler);
+                    }, { once: true });
+                }
+            });
+            
+            // Restore default toggle behavior for future clicks
+            setTimeout(() => {
+                details.ontoggle = null;
+            }, 300); // Match transition duration
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+             document.querySelectorAll('details').forEach(details => {
+                // Find the summary element
+                const summary = details.querySelector('summary');
+                
+                // Wrap content for animation and assign a class for later selection
+                const content = details.querySelector('.details-content');
+                if (content) {
+                    const innerWrapper = document.createElement('div');
+                    innerWrapper.classList.add('details-inner');
+                    while (content.firstChild) {
+                        innerWrapper.appendChild(content.firstChild);
+                    }
+                    content.appendChild(innerWrapper);
+                }
+                
+                // CRITICAL: Bind the animation handler to the summary click
+                if (summary) {
+                    summary.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        // Call toggleDetails passing the parent <details> element
+                        toggleDetails(details);
+                    });
+                }
+
+
+                // Initialize all sections as collapsed (set height to 0)
+                if (!details.hasAttribute('open')) {
+                    // Temporarily open to measure scrollHeight
+                    details.setAttribute('open', ''); 
+                    const innerContent = details.querySelector('.details-inner');
+                    if (innerContent) {
+                        // Use scrollHeight for initial height setting, then collapse
+                        innerContent.style.height = innerContent.scrollHeight + 'px'; 
+                        
+                        // Use a tiny delay to ensure height is set before starting collapse
+                        setTimeout(() => {
+                            innerContent.style.height = '0px';
+                            details.removeAttribute('open');
+                        }, 50);
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <div class="cv-container">
+
+        <!-- HEADER SECTION -->
+        <div class="header-content">
+            <img 
+                src="https://res.cloudinary.com/dzbuuzziz/image/upload/v1757253805/dp_sqmr0k.png" 
+                alt="Amal Mohammed" 
+                class="profile-image" 
+                onerror="this.onerror=null; this.src='https://placehold.co/130x130/f0f0f0/333333?text=AM';">
+            
+            <div class="header-text-block" style="line-height: 1.1;">
+                <h1>Amal Mohammed</h1>
+                <p style="font-size: 16px; font-weight: 500; color: #444;">CEO at Nutryfit</p>
+            </div>
+        </div>
+
+        <!-- ABOUT SECTION - STATIC -->
+        <h2 class="section-heading" style="color: #666; font-weight: 500; margin-top: 0;">ABOUT</h2>
+        <div class="about-content-text">
+            <p class="about-text" style="margin-bottom: 10px; font-weight: 500; font-size: 17px;">Tech enthusiast, entrepreneur and creative professional leverages expertise in healthcare, technology, advertising and marketing to consistently elevate and enhance digital experiences.</p>
+            <p class="about-text" style="font-weight: 500; font-size: 17px;">Versatile expert with a proven track record in executive leadership, digital innovation and brand development. Skilled in strategic planning and execution, decision-making and driving business growth to deliver impactful digital experiences in evolving industries.</p>
+        </div>
+        
+        <!-- KEY SKILLS SECTION -->
+        <details> <!-- Collapsed by default -->
+            <summary>
+                <span class="section-heading" style="color: #666; font-weight: 500;">KEY SKILLS</span>
+                <span style="font-weight: 600; color: #111;"></span>
+                <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
+            </summary>
+            <div class="details-content" style="padding-left: 0; margin-top: 5px;">
+                
+                <!-- Skills Column 1: Executive (Collapsed by default) -->
+                <details class="skills-category-details">
+                    <summary>
+                        <span style="color: #666; font-weight: 500;"></span>
+                        <span style="font-weight: 600; color: #111;">EXECUTIVE</span>
+                        <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
+                    </summary>
+                    <div class="details-content" style="padding-left: 115px; padding-top: 10px;">
+                        <div class="skills-list">
+                            Strategic Leadership &bull; Strategic Planning & Vision &bull; Executive Management &bull; Marketing Strategy &bull; Communication & Client Relations
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Skills Column 2: Innovation (Collapsed by default) -->
+                <details class="skills-category-details">
+                    <summary>
+                        <span style="color: #666; font-weight: 500;"></span>
+                        <span style="font-weight: 600; color: #111;">INNOVATION</span>
+                        <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
+                    </summary>
+                    <div class="details-content" style="padding-left: 115px; padding-top: 10px;">
+                        <div class="skills-list">
+                            Generative AI for Management &bull; Generative AI for Development &bull; Digital Innovation &bull; Decision-Making &bull; Healthcare Management &bull; Social Media Optimization (SMO) &bull; Business & Startup Development
+                        </div>
+                    </div>
+                </details>
+                
+                <!-- Skills Column 3: Technology (Collapsed by default) -->
+                <details class="skills-category-details">
+                    <summary>
+                        <span style="color: #666; font-weight: 500;"></span>
+                        <span style="font-weight: 600; color: #111;">TECHNOLOGY</span>
+                        <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
+                    </summary>
+                    <div class="details-content" style="padding-left: 115px; padding-top: 10px;">
+                        <div class="skills-list">
+                            Graphic Design &bull; User Interface (UI) Design &bull; Corporate Branding & Identity
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </details>
+
+        <!-- EXPERIENCE (formerly WORK EXPERIENCE) -->
+        <details> <!-- Collapsed by default -->
+            <summary>
+                <span class="section-heading" style="color: #666; font-weight: 500;">Experience</span>
+                <span style="font-weight: 600; color: #111;"></span>
+                <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
+            </summary>
+            <div class="details-content" style="padding-left: 0; margin-top: 5px;">
+                
+                <!-- NUTRYFIT GROUPING -->
+                <details style="border-bottom: none;">
+                    <summary style="border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;">
+                        <span style="color: #666;">Sep 2021 - Now</span>
+                        <span style="font-weight: 600; color: #111;">Nutryfit</span>
+                        <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
+                    </summary>
+                    <div class="details-content" style="padding-left: 115px; padding-top: 10px;">
+                        <!-- CEO Role -->
+                        <div class="sub-job">
+                            <p style="font-weight: 600;">Chief Executive Officer (Jan 2024 - Now)</p>
+                            <p style="margin-bottom: 10px;">Providing strategic and executive leadership for business development and overall organizational health.</p>
+                        </div>
+                        <!-- Co-Founder Role -->
+                        <div class="sub-job">
+                            <p style="font-weight: 600;">Co-Founder and Brand Strategist (Sep 2021 - 2023)</p>
+                            <p>Established foundational brand strategy and market positioning for a new healthcare venture.</p>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- SPEAKERBOX GROUPING -->
+                <details style="border-bottom: none;">
+                    <summary style="border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;">
+                        <span style="color: #666;">Apr 2023 - Now</span>
+                        <span style="font-weight: 600; color: #111;">Speakerbox</span>
+                        <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
+                    </summary>
+                    <div class="details-content" style="padding-left: 115px; padding-top: 10px;">
+                        <!-- AI Coordinator Role -->
+                        <div class="sub-job">
+                            <p style="font-weight: 600;">AI Department Coordinator (Apr 2025 - Now)</p>
+                            <p style="margin-bottom: 10px;">Coordinated the integration and application of Generative AI for management, learning and development initiatives.</p>
+                        </div>
+                        <!-- Brand Growth Role -->
+                        <div class="sub-job">
+                            <p style="font-weight: 600;">Brand Growth Specialist (Nov 2024 - Now)</p>
+                            <p style="margin-bottom: 10px;">Developed strategic marketing plans focused on corporate branding and clear strategic visionary role.</p>
+                        </div>
+                        <!-- Graphic Designer KSA Role -->
+                        <div class="sub-job">
+                            <p style="font-weight: 600;">Graphic Designer (Sep 2024 - Nov 2024)</p>
+                            <p style="margin-bottom: 10px;">Executed graphic design projects for the Saudi Arabian market focusing on corporate branding and creative asset production.</p>
+                        </div>
+                        <!-- Graphic Designer Role -->
+                        <div class="sub-job">
+                            <p style="font-weight: 600;">Graphic Designer (Apr 2023 - Oct 2023)</p>
+                            <p>Created a wide range of marketing and advertising materials, specializing in corporate brand identity.</p>
+                        </div>
+                    </div>
+                </details>
+        
+                <!-- THE WEBSITERS -->
+                <details style="border-bottom: none;">
+                    <summary style="border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;">
+                        <span style="color: #666;">Jan 2024 - Now</span>
+                        <span style="font-weight: 600; color: #111;">the websiters</span>
+                        <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
+                    </summary>
+                    <div class="details-content" style="padding-left: 115px; padding-top: 10px;">
+                        <!-- Founder Role -->
+                        <div class="sub-job">
+                            <p style="font-weight: 600;">Founder</p>
+                            <p>Directed the full scope of startup development, managing all client relations and project lifecycles from concept through final delivery.</p>
+                        </div>
+                    </div>
+                </details>
+
+            </div>
+        </details>
+
+        <!-- EDUCATION -->
+        <details> <!-- Collapsed by default -->
+            <summary>
+                <span class="section-heading" style="color: #666; font-weight: 500;">Education</span>
+                <span style="font-weight: 600; color: #111;"></span>
+                <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
+            </summary>
+            <div class="details-content" style="padding-left: 0; margin-top: 5px;">
+                <div class="two-col-container">
+                    <div class="two-col-grid">
+                        <p style="color: #666;">2019 - 2023</p>
+                        <div>
+                            <p style="font-weight: 600; color: #111;">Bachelor of Science in Nutrition Science</p>
+                            <p style="color: #444;">MES Mampad College, Kerala, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="two-col-container" style="border-bottom: none;">
+                    <div class="two-col-grid">
+                        <p style="color: #666;">Dec 2022 - Mar 2023</p>
+                        <div>
+                            <p style="font-weight: 600; color: #111;">Clinical Dietitian (Internship)</p>
+                            <p style="color: #444;">Madras Medical Mission, Chennai, Tamil Nadu, India</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+
+        <!-- CONNECT (formerly CONTACT) -->
+        <details> <!-- Collapsed by default -->
+            <summary>
+                <span class="section-heading" style="color: #666; font-weight: 500;">Connect</span>
+                <span style="font-weight: 600; color: #111;"></span>
+                <span class="material-symbols-outlined details-icon">arrow_drop_down</span>
+            </summary>
+            <div class="details-content" style="padding-left: 0; margin-top: 5px;">
+                
+                <!-- LinkedIn -->
+                <div class="contact-entry">
+                    <svg class="contact-icon-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-3.82 -3.82 389.64 389.64" xml:space="preserve">
+                         <path style="fill:#666;" d="M347.445,0H34.555C15.471,0,0,15.471,0,34.555v312.889C0,366.529,15.471,382,34.555,382h312.889 C366.529,382,382,366.529,382,347.444V34.555C382,15.471,366.529,0,347.445,0z M118.207,329.844c0,5.554-4.502,10.056-10.056,10.056 H65.345c-5.554,0-10.056-4.502-10.056-10.056V150.403c0-5.554,4.502-10.056,10.056-10.056h42.806 c5.554,0,10.056,4.502,10.056,10.056V329.844z M86.748,123.432c-22.459,0-40.666-18.207-40.666-40.666S64.289,42.1,86.748,42.1 s40.666,18.207,40.666,40.666S109.208,123.432,86.748,123.432z M341.91,330.654c0,5.106-4.14,9.246-9.246,9.246H286.73 c-5.106,0-9.246-4.14-9.246-9.246v-84.168c0-12.556,3.683-55.021-32.813-55.021c-28.309,0-34.051,29.066-35.204,42.11v97.079 c0,5.106-4.139,9.246-9.246,9.246h-44.426c-5.106,0-9.246-4.14-9.246-9.246V149.593c0-5.106,4.14-9.246,9.246-9.246h44.426 c5.106,0,9.246,4.14,9.246,9.246v15.655c10.497-15.753,26.097-27.912,59.312-27.912c73.552,0,73.131,68.716,73.131,106.472 L341.91,330.654L341.91,330.654z"/> 
+                    </svg>
+                    <a href="https://www.linkedin.com/in/amalmohammedc/" target="_blank" class="contact-text">linkedin.com/in/amalmohammedc</a>
+                </div>
+                
+                <!-- Email -->
+                <div class="contact-entry">
+                    <span class="material-symbols-outlined contact-icon-material">mail</span>
+                    <a href="mailto:amalmohammedc@gmail.com" target="_blank" class="contact-text">amalmohammedc@gmail.com</a>
+                </div>
+
+                <!-- Instagram (NEW) -->
+                <div class="contact-entry">
+                    <svg class="contact-icon-svg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M3 8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8Zm5-3a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H8Zm7.597 2.214a1 1 0 0 1 1-1h.01a1 1 0 1 1 0 2h-.01a1 1 0 0 1-1-1ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm-5 3a5 5 0 1 1 10 0 5 5 0 0 1-10 0Z" clip-rule="evenodd"/>
+                    </svg>
+                    <a href="https://www.instagram.com/amalmohammedc" target="_blank" class="contact-text">instagram.com/amalmohammedc</a>
+                </div>
+
+                <!-- Facebook (NEW) -->
+                <div class="contact-entry">
+                    <svg class="contact-icon-svg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6h.543Z" clip-rule="evenodd"/>
+                    </svg>
+                    <a href="https://www.facebook.com/amalmohammedc" target="_blank" class="contact-text">facebook.com/amalmohammedc</a>
+                </div>
+            </div>
+        </details>
+        
+    </div>
+
+</body>
+</html>
